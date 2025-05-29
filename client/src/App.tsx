@@ -18,7 +18,7 @@ function App() {
     setLoading(true);
     setMessage('');
     try {
-      // await axios.post(`${API_URL}/scrape`);
+      await axios.post(`${API_URL}/scrape`);
       await fetchBooks();
       setMessage('✅ Books scraped and updated successfully!');
     } catch (err) {
@@ -26,10 +26,6 @@ function App() {
     }
     setLoading(false);
   };
-
-  useEffect(() => {
-    fetchBooks();
-  }, []);
 
   return (
     <div className="container">
