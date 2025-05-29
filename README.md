@@ -129,7 +129,7 @@ Backend on Render
 - Go to render.com, create a new Web Service.
 - Set:
       - Start command: node index.js
-      - Environment variable MONGO_URI
+      - Environment variable: MONGO_URI
 
 
 
