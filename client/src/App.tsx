@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API_URL = 'https://book-admin-panel-1gt6.onrender.com';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchBooks = async () => {
+    const res = await axios.get(`${API_URL}/books`);
+    setBooks(res.data);
+  };
+
+  const handleScrape = async () => {
+    setLoading(true);
+    await axios.post(`${API_URL}/scrape`);
+    await fetchBooks();
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ padding: '2rem' }}>
+      <h1>📚 Book Admin Panel</h1>
+      <button onClick={handleScrape} disabled={loading}>
+        {loading ? 'Scraping...' : 'Scrape Now'}
+      </button>
+      <table border={1} cellPadding={10} style={{ marginTop: '1rem' }}>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {books.map((book: any, index: number) => (
+            <tr key={index}>
+              <td>{book.title}</td>
+              <td>{book.price}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-export default App
+export default App;
