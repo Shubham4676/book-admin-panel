@@ -1,13 +1,29 @@
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
 const API_URL = 'https://book-admin-panel-1gt6.onrender.com';
 
-function App() {
+// 🏠 Home Component
+function Home() {
+  const navigate = useNavigate();
+  return (
+    <div className="container">
+      <h1>📚 Welcome to Book Scraper</h1>
+      <button onClick={() => navigate('/admin')} className="scrape-button">
+        Go to Admin Panel
+      </button>
+    </div>
+  );
+}
+
+// 📋 Admin Panel Component
+function AdminPanel() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const fetchBooks = async () => {
     const res = await axios.get(`${API_URL}/books`);
@@ -33,6 +49,9 @@ function App() {
       <button onClick={handleScrape} disabled={loading} className="scrape-button">
         {loading ? 'Scraping...' : 'Scrape Now'}
       </button>
+      <button onClick={() => navigate('/')} className="back-button" style={{ marginLeft: '1rem' }}>
+        ← Back
+      </button>
       {message && <p className="message">{message}</p>}
       <table className="book-table">
         <thead>
@@ -51,6 +70,18 @@ function App() {
         </tbody>
       </table>
     </div>
+  );
+}
+
+// 🔁 Main App with Routes
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<AdminPanel />} />
+      </Routes>
+    </Router>
   );
 }
 
