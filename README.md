@@ -39,8 +39,9 @@ A cloud-based admin panel built with React and Express.js that scrapes book data
 
 ---
 
-## 📁 Project Structure
+### 📁 Project Structure (Vertical)
 
+```
 book-admin-panel/
 │
 ├── client/                  # React frontend
@@ -56,7 +57,7 @@ book-admin-panel/
 │       └── Book.js
 │
 └── README.md
-
+```
 
 ---
 
