@@ -42,15 +42,19 @@ A cloud-based admin panel built with React and Express.js that scrapes book data
 ## 📁 Project Structure
 
 book-admin-panel/
-├── client/ # React frontend
-│ ├── src/
-│ │ ├── App.tsx
-│ │ └── ...
-│ └── public/
-├── server/ # Express backend
-│ ├── index.js
-│ ├── scraper.js
-│ └── models/Book.js
+│
+├── client/                  # React frontend
+│   ├── public/
+│   └── src/
+│       ├── App.tsx
+│       └── ...
+│
+├── server/                  # Express backend
+│   ├── index.js
+│   ├── scraper.js
+│   └── models/
+│       └── Book.js
+│
 └── README.md
 
 
