@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 const API_URL = 'https://book-admin-panel-1gt6.onrender.com';
 
 function App() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const fetchBooks = async () => {
     const res = await axios.get(`${API_URL}/books`);
@@ -14,8 +16,14 @@ function App() {
 
   const handleScrape = async () => {
     setLoading(true);
-    await axios.post(`${API_URL}/scrape`);
-    await fetchBooks();
+    setMessage('');
+    try {
+      await axios.post(`${API_URL}/scrape`);
+      await fetchBooks();
+      setMessage('✅ Books scraped and updated successfully!');
+    } catch (err) {
+      setMessage('❌ Failed to scrape books.');
+    }
     setLoading(false);
   };
 
@@ -24,12 +32,13 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="container">
       <h1>📚 Book Admin Panel</h1>
-      <button onClick={handleScrape} disabled={loading}>
+      <button onClick={handleScrape} disabled={loading} className="scrape-button">
         {loading ? 'Scraping...' : 'Scrape Now'}
       </button>
-      <table border={1} cellPadding={10} style={{ marginTop: '1rem' }}>
+      {message && <p className="message">{message}</p>}
+      <table className="book-table">
         <thead>
           <tr>
             <th>Title</th>
