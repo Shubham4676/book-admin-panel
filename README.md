@@ -15,10 +15,7 @@ A cloud-based admin panel built with React and Express.js that scrapes book data
 
 ## 🚀 Live Demo
 
-🌐 [Visit Book Admin Panel](https://book-admin-panel-<your-vercel-id>.vercel.app)
-
-> Replace `<your-vercel-id>` with your actual deployment URL
-
+🌐 [Visit Book Admin Panel](https://book-admin-panel-zeta.vercel.app/)
 ---
 
 ## 🛠️ Technologies Used
